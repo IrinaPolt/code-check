@@ -1,0 +1,84 @@
+version: "3.3"
+services:
+
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    ports:
+      - "5432:5432"
+  
+  backend:
+    image: irinapoltarykhina/code_check:latest
+    restart: always
+    volumes:
+      - static_value:/app/static/
+      - media_value:/app/media/
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    command: /app/server-entrypoint.sh
+
+  nginx:
+    restart: always
+    image: nginx:1.23-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static
+      - media_value:/var/html/media
+    depends_on:
+      - backend
+
+  celery:
+    build: ../backend/
+    command: celery -A backend worker -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build: ../backend/
+    command: celery -A backend beat -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine 
+    expose:
+      - 6379
+    depends_on:
+      - backend
+
+#  frontend:
+#    image: irinapoltarykhina/code_check_front:latest
+#    restart: always
+#    volumes:
+#      - ../frontend/:/app/build/
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      - REACT_APP_BACKEND_URL=http://localhost:8000
+
+
+volumes:
+  static_volume:
+  static_value:
+  media_value:
+  postgres_data:

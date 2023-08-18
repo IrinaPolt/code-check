@@ -1,0 +1,11 @@
+celery
+Django
+django-templated-mail
+djangorestframework
+djangorestframework-simplejwt
+djoser
+drf-yasg
+redis
+gunicorn
+psycopg2-binary
+pep8
