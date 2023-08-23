@@ -37,7 +37,7 @@ services:
       - backend
 
   celery:
-    build: ../backend/
+    image: irinapoltarykhina/code_check:latest
     command: celery -A backend worker -l info
     volumes:
       - .:/code
@@ -48,7 +48,7 @@ services:
       - redis
 
   celery-beat:
-    build: ../backend/
+    image: irinapoltarykhina/code_check:latest
     command: celery -A backend beat -l info
     volumes:
       - .:/code
@@ -66,15 +66,19 @@ services:
     depends_on:
       - backend
 
-#  frontend:
-#    image: irinapoltarykhina/code_check_front:latest
-#    restart: always
-#    volumes:
-#      - ../frontend/:/app/build/
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - REACT_APP_BACKEND_URL=http://localhost:8000
+  frontend:
+    image: irinapoltarykhina/code_check_front:latest
+    restart: always
+    volumes:
+      - ../frontend/:/app/build/
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:80
+    depends_on:
+      - db
+      - backend
+
 
 
 volumes:

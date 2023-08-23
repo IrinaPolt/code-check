@@ -4,6 +4,7 @@ import pep8
 from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils import timezone
 
 from .models import LogFile, CodeFile
 
@@ -42,8 +43,9 @@ def check_files_and_send_email():
                     'code': err_code,
                     'text': text,
                 })
+        output.append('Message sent to user at: '+ timezone.now())
 
-        log = LogFile(user=file.author, file=file.title, log=output)
+        log = LogFile(user=file.author, file=file, log=output)
         log.save()
 
         message = f"File: {file.title}\n\nPEP8 Check Result:\n{output}"

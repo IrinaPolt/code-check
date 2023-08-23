@@ -1,0 +1,71 @@
+.form {
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3e4f8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
+  }
+
+  .Toastify__close-button {
+    width: 50px;
+}
+
+  .form h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 5px;
+  }
+  
+  .form-group label {
+    color: #333;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    color: #333;
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #8e4683;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 3px;
+  }
+  
+  button:hover {
+    background-color: #734d97;
+  }
+
+  #update label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+  }
+
+  #update input {
+    width: 95%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+  }

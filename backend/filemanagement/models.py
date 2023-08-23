@@ -38,6 +38,9 @@ class LogFile(models.Model):
         User,
         on_delete=models.CASCADE
     )
-    file = models.FileField(upload_to='check_logs/')
+    file = models.ForeignKey(
+        CodeFile,
+        on_delete=models.CASCADE
+    )
     timestamp = models.DateTimeField(auto_now_add=True)
     log = models.TextField()

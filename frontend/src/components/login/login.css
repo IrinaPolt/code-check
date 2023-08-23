@@ -1,0 +1,22 @@
+.description {
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+    margin-top: 200px;
+    padding: 10px;
+    height: 40vh;
+    width: 40%;
+    background-color: rgb(204, 179, 197);
+    opacity: 0.6;
+    border-radius: 10px;
+}
+
+p {
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.forms {
+    margin-top: 25px;
+}

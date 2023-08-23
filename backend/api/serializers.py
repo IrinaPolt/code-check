@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from filemanagement.models import CodeFile
+from filemanagement.models import CodeFile, LogFile
 from users.models import User
 
 
@@ -46,8 +46,8 @@ class CodeFileCreateSerializer(serializers.ModelSerializer):
         return code_file
 
     def update(self, instance, validated_data):
-        instance.file = validated_data.get('file', instance.file)
-        instance.full_clean()
+        instance.file = validated_data['file']
+        instance.title = validated_data['file'].name
         instance.save()
         return instance
 
@@ -56,4 +56,11 @@ class CodeFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CodeFile
-        fields = ('title', 'created_at', 'updated_at')
+        fields = ('id', 'title', 'text', 'created_at', 'updated_at')
+
+
+class LogFileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LogFile
+        fields = ('id', 'file', 'timestamp', 'log')
